@@ -1,0 +1,21 @@
+# Build artifacts
+*.o
+a.out
+*.out
+/bin/
+
+# Executables
+server
+client
+server*
+client*
+*_select
+udp_*
+
+# Logs & captures
+*.log
+*.pcap
+
+# Editor/OS files
+*.swp           # Vim swap files
+*.dSYM/         # macOS debug symbols
