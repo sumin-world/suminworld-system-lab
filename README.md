@@ -11,8 +11,8 @@ A collection of hands-on system programming exercises, Linux kernel exploration,
 ---
 
 ## 🧪 Overview
-시스템 프로그래밍 · 네트워크 · 리눅스 커널 학습 및 실습 저장소
-개발 환경: **UTM Ubuntu + VS Code (SSH)**
+- 시스템 프로그래밍 · 네트워크 · 리눅스 커널 학습 및 실습 저장소
+- 개발 환경: **UTM Ubuntu + VS Code (SSH)**
 
 ## 📂 Structure
 - `network/` : TCP/UDP client, Wireshark analysis
