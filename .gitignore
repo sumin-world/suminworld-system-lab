@@ -4,18 +4,18 @@ a.out
 *.out
 /bin/
 
-# Executables
+# Executables (compiled binaries only)
 server
 client
-server*
-client*
-*_select
-udp_*
+server_select
+client_select
+udp_server
+udp_client
 
 # Logs & captures
 *.log
 *.pcap
 
 # Editor/OS files
-*.swp           # Vim swap files
-*.dSYM/         # macOS debug symbols
+*.swp            # Vim swap files
+*.dSYM/          # macOS debug symbols
