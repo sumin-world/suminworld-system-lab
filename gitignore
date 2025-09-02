@@ -1,0 +1,7 @@
+
+# build artifacts
+network/basics/tcp_client
+*.o
+*.out
+*.exe
+

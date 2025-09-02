@@ -1,10 +1,36 @@
-# Build artifacts
+# =========================
+# Build artifacts (C/C++)
+# =========================
 *.o
+*.obj
+*.lo
+*.la
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.elf
 a.out
 *.out
-/bin/
 
-# Executables (compiled binaries only)
+# Build directories (common)
+build/
+bin/
+out/
+obj/
+Debug/
+Release/
+
+# =========================
+# Project-specific binaries
+# (network/basics)
+# =========================
+network/basics/tcp_client
+network/basics/*_client
+network/basics/*_server
+
+# Legacy/simple names (if built at repo root)
 server
 client
 server_select
@@ -12,10 +38,52 @@ client_select
 udp_server
 udp_client
 
-# Logs & captures
+# =========================
+# Logs & packet captures
+# =========================
 *.log
 *.pcap
+*.pcapng
+*.cap
+capture*.pcap
 
-# Editor/OS files
-*.swp            # Vim swap files
-*.dSYM/          # macOS debug symbols
+# =========================
+# Debug / profiling / coverage
+# =========================
+core
+core.*
+vgcore.*
+perf.data*
+gmon.out
+callgrind.out.*
+massif.out.*
+*.dSYM/
+*.gcno
+*.gcda
+*.gcov
+coverage/
+
+# =========================
+# Editor / tooling / OS
+# =========================
+# Vim
+*.swp
+
+# VS Code (keep common task/launch if you like)
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# clangd/Bear
+compile_commands.json
+.ipch/
+.cache/
+
+# IDE / OS
+.idea/
+.DS_Store
+
+# =========================
+# Optional: Rust experiments
+# =========================
+target/
