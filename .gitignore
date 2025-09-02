@@ -14,7 +14,7 @@
 a.out
 *.out
 
-# Build directories (common)
+# Build directories
 build/
 bin/
 out/
@@ -24,13 +24,13 @@ Release/
 
 # =========================
 # Project-specific binaries
-# (network/basics)
 # =========================
+# (network/basics)
 network/basics/tcp_client
 network/basics/*_client
 network/basics/*_server
 
-# Legacy/simple names (if built at repo root)
+# Legacy/simple names (repo root builds)
 server
 client
 server_select
