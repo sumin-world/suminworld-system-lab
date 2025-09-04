@@ -38,6 +38,12 @@ client_select
 udp_server
 udp_client
 
+# (shell)
+shell/*
+!shell/*.c
+!shell/*.h
+!shell/*.md
+
 # =========================
 # Logs & packet captures
 # =========================

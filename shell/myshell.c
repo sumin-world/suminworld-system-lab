@@ -34,20 +34,21 @@ typedef struct {
 static volatile pid_t fg_pgid = 0;
 
 static void sigint_handler(int sig) {
-    // 전달: 포그라운드 파이프라인이 실행 중이면 그 그룹에 SIGINT
+    (void)sig;  // unused 경고 방지
     if (fg_pgid > 0) {
         kill(-fg_pgid, SIGINT);
     }
 }
+
 
 static void trim_newline(char *s) {
     size_t n = strlen(s);
     if (n && (s[n-1] == '\n')) s[n-1] = '\0';
 }
 
-static int is_special(const char *t) {
-    return (!strcmp(t, "|") || !strcmp(t, "<") || !strcmp(t, ">") || !strcmp(t, ">>") || !strcmp(t, "&"));
-}
+// static int is_special(const char *t) {
+//     return (!strcmp(t, "|") || !strcmp(t, "<") || !strcmp(t, ">") || !strcmp(t, ">>") || !strcmp(t, "&"));
+// }
 
 static int tokenize(char *line, char *tokens[], int max_tokens) {
     int ntok = 0;
