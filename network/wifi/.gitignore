@@ -1,0 +1,24 @@
+# --- Wi-Fi security lab ignore rules ---
+
+# Packet capture files (raw traffic, 민감 데이터)
+*.pcap
+*.pcapng
+
+# Raw / 중간 결과 CSV (SSID/BSSID 노출 가능성)
+ap_summary.csv
+ap_summary_clean.csv
+
+# OS / tool generated
+*.log
+*.tmp
+*.swp
+*.bak
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# System-specific
+*.out
