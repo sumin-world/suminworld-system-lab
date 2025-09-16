@@ -543,15 +543,15 @@ static void init_shell(void) {
     shell_terminal = STDIN_FILENO;
 
     shell_pgid = getpid();
-    setpgid(shell_pgid, shell_pgid);
-    if (isatty(shell_terminal)) {
-        tcsetpgrp(shell_terminal, shell_pgid);
-        tcgetattr(shell_terminal, &shell_tmodes);
+    setpgid(shell_pgid, shell_pgid); // 터미널 제어권을 내 그룹으로
+    if (isatty(shell_terminal)) { // 키보드 모드라면 (tty=TeleTYpewriter)
+        tcsetpgrp(shell_terminal, shell_pgid); // tcsetpgrp = tc(Terminal Control) + set + pgrp(Process GRouP) 터미널의 제어권을 이 프로세스 그룹에게 줌
+        tcgetattr(shell_terminal, &shell_tmodes); // tcgetattr(터미널번호, 저장할곳), attr은 속성, 현재 터미널 설정들을 저장 
     }
 
-    signal(SIGTTOU, SIG_IGN);
-    signal(SIGTTIN, SIG_IGN);
-    signal(SIGPIPE, SIG_IGN);
+    signal(SIGTTOU, SIG_IGN); // SIGTTOU 시그널 무시 (터미널 출력 관련)
+    signal(SIGTTIN, SIG_IGN); // SIGTTIN 시그널 무시 (터미널 입력 관련)
+    signal(SIGPIPE, SIG_IGN); // SIGPIPE 시그널 무시 (파이프 관련)
 
     struct sigaction sa_int = {0}, sa_tstp = {0}, sa_chld = {0};
 
