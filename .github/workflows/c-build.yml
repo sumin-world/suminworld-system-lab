@@ -5,15 +5,24 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+    defaults:
+      run:
+        shell: bash
+        working-directory: signal-demo
+
     steps:
       - uses: actions/checkout@v4
-      
+
+      - name: Show where we are
+        run: pwd && ls -la
+
       - name: Build (Release)
         run: make
-      
+
       - name: Build (Debug)
         run: make debug
-      
+
       - name: Run tests
-        run: make test
+        run: |
+          chmod +x test.sh
+          ./test.sh
