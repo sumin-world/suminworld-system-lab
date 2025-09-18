@@ -369,11 +369,22 @@ int main(void) {
         
         int choice;
         if (scanf("%d", &choice) != 1) {
+            int ch;
+            if (feof(stdin)) {
+                printf("\nEOF detected. Exiting.\n\n");
+                return 0;  // 파이프 입력 끝나면 정상 종료
+            }
             printf("\nInvalid input.\n");
-            while(getchar() != '\n');
+            while ((ch = getchar()) != '\n' && ch != EOF) { /* discard */ }
             continue;
         }
-        getchar();  /* consume newline */
+
+{
+    int ch2 = getchar();
+    if (ch2 != '\n' && ch2 != EOF) {
+        while ((ch2 = getchar()) != '\n' && ch2 != EOF) {}
+    }
+}
         
         switch(choice) {
             case 1: demo_basic(); break;

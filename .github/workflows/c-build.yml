@@ -2,6 +2,10 @@ name: C Build
 
 on: [push, pull_request]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,8 +20,10 @@ jobs:
       - name: Build
         run: make
 
-      # 메뉴에 "7\n"을 주입해서 auto_test만 돌리고,
-      # 60초 넘으면 timeout이 강제로 끊어서 무한 대기/실패 방지
-      - name: Run auto_test non-interactively (60s timeout)
+      # 메뉴에 7(자동 테스트) → 0(종료) 입력.
+      # FAST 모드로 슬립 단축. 60초 넘으면 timeout으로 종료.
+      - name: Run auto_test (fast, 60s timeout)
+        env:
+          DEMO_FAST: "1"
         run: |
-          printf "7\n" | timeout 60s ./signal_demo
+          printf "7\n0\n" | timeout 60s ./signal_demo
