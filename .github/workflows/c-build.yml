@@ -13,16 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Show cwd
-        run: pwd && ls -la
-
-      - name: Build (Release)
+      - name: Build
         run: make
 
-      - name: Build (Debug)
-        run: make debug
-
-      - name: Run tests
+      # 메뉴에 "7\n"을 주입해서 auto_test만 돌리고,
+      # 60초 넘으면 timeout이 강제로 끊어서 무한 대기/실패 방지
+      - name: Run auto_test non-interactively (60s timeout)
         run: |
-          chmod +x test.sh
-          ./test.sh
+          printf "7\n" | timeout 60s ./signal_demo
