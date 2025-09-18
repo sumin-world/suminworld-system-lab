@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Show where we are
+      - name: Where am I?
         run: pwd && ls -la
 
       - name: Build (Release)
