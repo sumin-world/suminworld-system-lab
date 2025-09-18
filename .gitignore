@@ -93,3 +93,7 @@ compile_commands.json
 # Optional: Rust experiments
 # =========================
 target/
+
+# Signal demo
+signal_demo
+signal-demo/signal_demo
