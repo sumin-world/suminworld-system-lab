@@ -1,5 +1,8 @@
 # Signal Handling Demo
 
+[![CI](https://github.com/suminworld/signal-demo/workflows/C%20Build/badge.svg)](https://github.com/suminworld/signal-demo/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Unix signal handling in C with comprehensive examples.
 
 ## Features
@@ -21,6 +24,19 @@ make
 # Run the program
 ./signal_demo
 ```
+
+## Learning Map: Shell Concepts
+
+This demo maps to key concepts in shell implementation:
+
+| Demo Feature | Shell Concept | Description |
+|--------------|---------------|-------------|
+| **SIGINT Handler** | `sigaction(SIGINT, ...)` | Handle Ctrl+C with confirmation prompt |
+| **SIGTSTP Catch** | Job control awareness | Prevent default stop, show custom behavior |
+| **SIGALRM Timer** | Timeout implementation | Periodic timers, alarm-based tasks |
+| **USR1/USR2** | State management | Toggle/reset operations via signals |
+| **Signal Masking** | Critical section protection | Block signals during important operations |
+| **waitpid()** | Zombie prevention | Proper child process cleanup |
 
 ## How to Use
 
@@ -75,6 +91,18 @@ $ fg
 # Press Ctrl+C then 'y' to exit
 ```
 
+## Experimental Learning
+
+### SIGTSTP Default Behavior
+To see the difference between catching and default handling:
+```c
+/* In main(), try commenting out SIGTSTP handler: */
+// install_handler(SIGTSTP, sigtstp_handler);
+install_handler(SIGTSTP, SIG_DFL);  // Use default (actual stop)
+```
+
+This shows how job control normally works versus custom handling.
+
 ## Compilation Warnings
 
 When compiling, you may see warnings about unused `write()` return values:
@@ -110,11 +138,19 @@ gcc -O2 -Wall -Wextra -Wno-unused-result -o signal_demo signal_demo.c
 ## Build Commands
 
 ```bash
-make          # Compile
+make          # Release build
+make debug    # Debug build with sanitizers
 make run      # Run program
 make test     # Run automated test
 make clean    # Clean build files
 ```
+
+### Debug Build
+The debug target includes:
+- Address Sanitizer (memory errors)
+- Undefined Behavior Sanitizer
+- Debug symbols (`-g`)
+- No optimization (`-O0`)
 
 ## Implementation Notes
 
@@ -126,6 +162,14 @@ void handler(int sig) {
 }
 ```
 
+### Advanced: Race-Free Signal Handling
+For advanced users, consider `pselect()` instead of `select()`:
+```c
+/* pselect() with signal mask is more race-free than select() */
+// sigset_t mask;
+// pselect(nfds, &readfds, NULL, NULL, &timeout, &mask);
+```
+
 ### Signal-Safe Flags
 ```c
 static volatile sig_atomic_t running = 1;
@@ -134,12 +178,21 @@ static volatile sig_atomic_t running = 1;
 ## Files
 
 ```
-signal_demo.c    # Main program
-test.sh          # Automated test script
-Makefile         # Build configuration
-README.md        # This file
-.gitignore       # Git ignore rules
+signal_demo.c            # Main program
+test.sh                  # Automated test script
+Makefile                 # Build configuration
+README.md                # This file
+LICENSE                  # MIT License
+.github/workflows/c.yml  # CI configuration
+.gitignore               # Git ignore rules
 ```
+
+## CI/CD
+
+GitHub Actions automatically:
+- Builds release version
+- Builds debug version with sanitizers
+- Runs automated tests
 
 ## License
 

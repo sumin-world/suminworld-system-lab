@@ -50,14 +50,14 @@ static void u32_to_dec(unsigned int x, char *buf, size_t *len) {
 void sigint_handler(int sig) {
     (void)sig;
     const char msg[] = "\nReceived SIGINT. Exit? (y/n): ";
-    write(1, msg, sizeof(msg) - 1);
+    (void)write(1, msg, sizeof(msg) - 1);
     
     char c;
     if (read(0, &c, 1) > 0 && (c == 'y' || c == 'Y')) {
-        write(1, "\nExiting program.\n", 18);
+        (void)write(1, "\nExiting program.\n", 18);
         _exit(0);
     }
-    write(1, "Continuing...\n", 14);
+    (void)write(1, "Continuing...\n", 14);
 }
 
 void sigtstp_handler(int sig) {
@@ -65,7 +65,7 @@ void sigtstp_handler(int sig) {
     /* SIGTSTP is caught to demonstrate job control awareness,
      * but we prevent actual stopping by not calling default handler */
     const char msg[] = "\nReceived SIGTSTP. Stop prevented (demo).\n";
-    write(1, msg, sizeof(msg) - 1);
+    (void)write(1, msg, sizeof(msg) - 1);
 }
 
 void sigalrm_handler(int sig) {
@@ -76,16 +76,16 @@ void sigalrm_handler(int sig) {
     const char p2[] = " triggered!\n";
 
     /* 1) Prefix output */
-    write(1, p1, sizeof(p1) - 1);
+    (void)write(1, p1, sizeof(p1) - 1);
 
     /* 2) Number conversion and output */
     char digits[16];
     size_t dlen = 0;
     u32_to_dec((unsigned)alarm_count, digits, &dlen);
-    if (dlen > 0) write(1, digits, dlen);
+    if (dlen > 0) (void)write(1, digits, dlen);
 
     /* 3) Suffix output */
-    write(1, p2, sizeof(p2) - 1);
+    (void)write(1, p2, sizeof(p2) - 1);
 
     alarm(3);  /* alarm() is async-signal-safe */
 }
@@ -94,9 +94,9 @@ void sigusr1_handler(int sig) {
     (void)sig;
     paused = !paused;
     if (paused) {
-        write(1, "\nPaused.\n", 9);
+        (void)write(1, "\nPaused.\n", 9);
     } else {
-        write(1, "\nResumed.\n", 10);
+        (void)write(1, "\nResumed.\n", 10);
     }
 }
 
@@ -104,7 +104,7 @@ void sigusr2_handler(int sig) {
     (void)sig;
     alarm_count = 0;
     const char msg[] = "\nCounter reset.\n";
-    write(1, msg, sizeof(msg) - 1);
+    (void)write(1, msg, sizeof(msg) - 1);
 }
 
 /* Install signal handler with sigaction (preferred) */
@@ -124,6 +124,10 @@ void demo_basic() {
     printf("Press Ctrl+C to test SIGINT\n");
     printf("Press Ctrl+Z to test SIGTSTP (will be caught)\n");
     printf("Press 'q' to return to menu\n\n");
+    
+    /* Advanced: For race-free signal handling, consider pselect() with signal mask
+     * instead of select(). pselect() atomically blocks signals during the wait.
+     * Example: pselect(nfds, &readfds, NULL, NULL, &timeout, &sigmask); */
     
     int count = 0;
     while(1) {
@@ -347,6 +351,9 @@ int main(void) {
     /* Install all handlers using sigaction */
     install_handler(SIGINT, sigint_handler);
     install_handler(SIGTSTP, sigtstp_handler);
+    /* Experimental: To see default SIGTSTP behavior (actual job stop):
+     * install_handler(SIGTSTP, SIG_DFL);
+     * This shows the difference between catching vs default handling */
     install_handler(SIGALRM, sigalrm_handler);
     install_handler(SIGUSR1, sigusr1_handler);
     install_handler(SIGUSR2, sigusr2_handler);

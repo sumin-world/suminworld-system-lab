@@ -6,6 +6,11 @@ all: signal_demo
 signal_demo: signal_demo.c
 	$(CC) $(CFLAGS) -o $@ $<
 
+debug: signal_demo.c
+	$(CC) -g -O0 -Wall -Wextra -pedantic \
+	      -fsanitize=address,undefined -fno-omit-frame-pointer \
+	      -o signal_demo $<
+
 run: signal_demo
 	./signal_demo
 
@@ -16,4 +21,4 @@ test: signal_demo
 clean:
 	rm -f signal_demo *.o
 
-.PHONY: all run test clean
+.PHONY: all debug run test clean
