@@ -1,6 +1,6 @@
 # Signal Handling Demo
 
-[![CI](https://github.com/sumin-world/suminworld-system-lab/actions/workflows/c-build.yml/badge.svg)](https://github.com/sumin-world/suminworld-system-lab/actions/workflows/c-build.yml)
+[![CI](https://github.com/sumin-world/suminworld-system-lab/actions/workflows/c-build.yml/badge.svg?branch=main)](https://github.com/sumin-world/suminworld-system-lab/actions/workflows/c-build.yml?query=branch%3Amain)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Unix signal handling in C with comprehensive examples.
