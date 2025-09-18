@@ -143,7 +143,7 @@ README.md        # This file
 
 ## License
 
-MIT
+This project follows the license in the repository root (MIT).
 
 ## Author
 
