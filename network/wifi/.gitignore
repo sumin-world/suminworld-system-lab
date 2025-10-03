@@ -1,12 +1,24 @@
 # --- Wi-Fi security lab ignore rules ---
 
-# Packet capture files (raw traffic, 민감 데이터)
+# Raw packet captures & raw CSV (절대 커밋 금지)
+captures/raw/*
+captures/safe/*
 *.pcap
 *.pcapng
-
-# Raw / 중간 결과 CSV (SSID/BSSID 노출 가능성)
 ap_summary.csv
 ap_summary_clean.csv
+
+# Python virtualenv
+.venv/
+env/
+venv/
+
+# Secrets / env files
+.env
+.env.local
+*.key
+*.pem
+*.crt
 
 # OS / tool generated
 *.log
@@ -14,11 +26,20 @@ ap_summary_clean.csv
 *.swp
 *.bak
 .DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
 
 # Python cache
 __pycache__/
 *.pyc
 *.pyo
 
-# System-specific
+# Build / output
 *.out
+dist/
+build/
