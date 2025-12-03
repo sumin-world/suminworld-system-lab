@@ -25,3 +25,6 @@ A collection of hands-on system programming exercises, Linux kernel exploration,
 - Understand **network traffic & security** (Wireshark + custom client code)
 - Explore **Linux kernel internals** (OSTEP, linux-insides)
 - Apply knowledge to **security research**
+- Explore Linux kernel internals (OSTEP, linux-insides)
+- Apply knowledge to security research
+- Study distributed systems & secure API design (OpenStack, REST, CVE analysis)
